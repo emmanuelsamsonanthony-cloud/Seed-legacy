@@ -1,0 +1,42 @@
+{
+ "src/App.tsx": [
+  {
+   "from": "import { useEffect, useState } from 'react';",
+   "to": "import { useEffect, useState } from 'react';\nimport Toolkit from './Toolkit';"
+  },
+  {
+   "from": "  const [soil, setSoil] = useState('Loamy');\n  const [rain, setRain] = useState('Unpredictable');\n  const [priority, setPriority] = useState('Drought tolerance');\n  const [showAll, setShowAll] = useState(false);\n",
+   "to": ""
+  },
+  {
+   "from": "  const demoResults = [\n    { name: 'Local drought-tolerant maize (demo variety A)', fit: soil === 'Sandy' ? 78 : 86, strengths: 'Potential drought resilience', note: 'Example record; confirm with local farmers.' },\n    { name: 'Traditional sorghum (demo variety B)', fit: rain === 'Low' || rain === 'Unpredictable' ? 91 : 80, strengths: 'Potential fit for variable rainfall', note: 'Example record; performance is not verified.' },\n    { name: 'Indigenous cowpea (demo variety C)', fit: soil === 'Sandy' ? 84 : 79, strengths: 'Potential short-season option', note: 'Example record; confirm soil and pest response.' }\n  ].map(item => ({ ...item, fit: Math.max(55, Math.min(96, item.fit + (priority === 'Short growing season' && item.name.includes('cowpea') ? 5 : priority === 'Soil health' && item.name.includes('sorghum') ? 2 : 0))) }))\n    .sort((a, b) => b.fit - a.fit);\n\n",
+   "to": ""
+  },
+  {
+   "from": "<b>Explore the demo ↗</b>",
+   "to": "<b>Explore the seed library ↗</b>"
+  },
+  {
+   "from": "        {page === 'toolkit' && <section className='toolkit-page section-pad'>\n          <div className='section-kicker'><span>03</span><span>SEED RESILIENCE TOOLKIT</span></div>\n          <div className='toolkit-heading'><div><h1 className='inner-title'>Explore what a resilient seed <em>could look like.</em></h1><p className='inner-lead'>Choose example growing conditions and see how a future Seed Legacy toolkit might organize seed information for farmers and youth researchers.</p></div></div>\n          <div className='demo-warning'><span>ⓘ</span><p><strong>Illustrative example only.</strong> All varieties, scores and recommendations on this page are fictional demo data. This tool does not use live weather, soil tests, field trials or verified agricultural research. Do not use its results to make real planting decisions.</p></div>\n          <div className='toolkit-workspace'>\n            <aside className='toolkit-controls'><div className='toolkit-card-top'><span>01 / SET YOUR EXAMPLE</span><span>✳</span></div><h2>Growing conditions</h2><label htmlFor='soil-select'>Soil type</label><select id='soil-select' value={soil} onChange={(e) => setSoil(e.target.value)}><option>Loamy</option><option>Sandy</option><option>Clay-rich</option></select><label htmlFor='rain-select'>Rainfall pattern</label><select id='rain-select' value={rain} onChange={(e) => setRain(e.target.value)}><option>Unpredictable</option><option>Low</option><option>Regular</option><option>Heavy</option></select><label htmlFor='priority-select'>Main resilience priority</label><select id='priority-select' value={priority} onChange={(e) => setPriority(e.target.value)}><option>Drought tolerance</option><option>Short growing season</option><option>Soil health</option><option>Variable rainfall</option></select><div className='selected-summary'><span>YOUR EXAMPLE PROFILE</span><b>{soil} soil · {rain.toLowerCase()} rainfall</b><small>Priority: {priority}</small></div><button className='button button-dark toolkit-reset' onClick={() => { setSoil('Loamy'); setRain('Unpredictable'); setPriority('Drought tolerance'); setShowAll(false); }}>Reset example <span>↻</span></button></aside>\n            <div className='toolkit-results'><div className='results-header'><div><span className='toolkit-card-top'>02 / SAMPLE MATCHES</span><h2>Example seed profiles</h2></div><span className='sample-badge'>SAMPLE DATA</span></div><p className='results-intro'>These made-up scores demonstrate a possible interface—not actual suitability ratings.</p>\n              {demoResults.slice(0, showAll ? 3 : 2).map((item, index) => <article className='seed-result' key={item.name}><div className='seed-result-icon'>{index === 0 ? '✳' : index === 1 ? '❋' : '◌'}</div><div className='seed-result-main'><div className='seed-result-title'><h3>{item.name}</h3><span>{item.fit}%</span></div><div className='fit-track'><span style={{ width: item.fit + '%' }} /></div><p>{item.strengths}</p><small>{item.note}</small></div></article>)}\n              <button className='text-button show-results' onClick={() => setShowAll(!showAll)}>{showAll ? 'Show fewer examples ↑' : 'Compare all 3 demo profiles ↓'}</button>\n            </div>\n          </div>\n          <div className='toolkit-next-steps'><div><span className='toolkit-overline'>HOW A REAL VERSION COULD GROW</span><h2>From example to evidence.</h2></div><div className='next-step-grid'><article><span>01</span><h3>Listen</h3><p>Record seed knowledge shared by Guardian Farmers, with their permission.</p></article><article><span>02</span><h3>Document</h3><p>Track seed origin, growing conditions and field observations over time.</p></article><article><span>03</span><h3>Validate</h3><p>Work with farmers and qualified agricultural partners before making real recommendations.</p></article></div></div>\n          <button className='button button-dark page-next' onClick={() => navigate('pilot')}>View the planned pilot <span>↗</span></button>\n        </section>}",
+   "to": "        {page === 'toolkit' && <Toolkit navigate={navigate} />}"
+  },
+  {
+   "from": "Develop clear records and a demonstration toolkit",
+   "to": "Develop clear records and a learning toolkit"
+  }
+ ],
+ "src/index.css": [
+  {
+   "from": "/* Interactive Seed Resilience Toolkit demo */",
+   "to": "/* Interactive Seed Resilience Toolkit */"
+  },
+  {
+   "from": ".demo-stamp { width: 112px; height: 112px; border: 1px solid #b5c09e; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #40583a; transform: rotate(8deg); }\n.demo-stamp span { font: 22px 'Playfair Display', serif; }\n.demo-stamp small { font: 7px 'DM Mono', monospace; margin-top: 4px; }\n.demo-warning { display: flex; gap: 14px; align-items: flex-start; background: #f1ead9; border-left: 3px solid #b48d4e; padding: 17px 20px; margin: 12px 0 32px; color: #5c5c49; }\n.demo-warning > span { font-size: 20px; color: #9d783e; }\n.demo-warning p { font-size: 11px; line-height: 1.8; margin: 0; }\n",
+   "to": ""
+  },
+  {
+   "from": ".demo-stamp { width: 86px; height: 86px; grid-row: 1; justify-self: end; margin-bottom: -90px; } ",
+   "to": ""
+  }
+ ]
+}
